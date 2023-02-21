@@ -1,5 +1,5 @@
 import 'package:book_app/screens/login/login.dart';
-import 'package:book_app/utils/mainTheme.dart';
+import 'package:book_app/utils/main_theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,7 +13,7 @@ class BookApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'welcome screen',
       theme: MainTheme().buildTheme(),
       home: const LoginScreen(),
     );
