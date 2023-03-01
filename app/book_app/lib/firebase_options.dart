@@ -17,15 +17,24 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,41 +52,12 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyACeknQHHZKi9ZnwMQkGk1SVMzS5ijNfqs',
-    appId: '1:616778244680:web:a9e41e1763caf86c46ee7d',
-    messagingSenderId: '616778244680',
-    projectId: 'chapter-chatters',
-    authDomain: 'chapter-chatters.firebaseapp.com',
-    storageBucket: 'chapter-chatters.appspot.com',
-    measurementId: 'G-1F0M6N0PE5',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCW0Kq6Q6Enmo7MEcXo9TpKbUQfjf3mDt0',
-    appId: '1:616778244680:android:0d9ff8785786a4e946ee7d',
-    messagingSenderId: '616778244680',
-    projectId: 'chapter-chatters',
-    storageBucket: 'chapter-chatters.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBd8h4rJ6vVlZ77wY3XaUmjoCv0DDz7Y0o',
-    appId: '1:616778244680:ios:baf21a69d7a5cdb046ee7d',
-    messagingSenderId: '616778244680',
-    projectId: 'chapter-chatters',
-    storageBucket: 'chapter-chatters.appspot.com',
-    iosClientId: '616778244680-8t7njqnsf3ad891n7qbu6kiul4q52e6r.apps.googleusercontent.com',
-    iosBundleId: 'com.example.bookApp',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBd8h4rJ6vVlZ77wY3XaUmjoCv0DDz7Y0o',
-    appId: '1:616778244680:ios:baf21a69d7a5cdb046ee7d',
-    messagingSenderId: '616778244680',
-    projectId: 'chapter-chatters',
-    storageBucket: 'chapter-chatters.appspot.com',
-    iosClientId: '616778244680-8t7njqnsf3ad891n7qbu6kiul4q52e6r.apps.googleusercontent.com',
-    iosBundleId: 'com.example.bookApp',
+    apiKey: 'AIzaSyBK06ltiwOWrEUbE-lzHDkKWJjW5hMzixo',
+    appId: '1:372603808557:android:df5686188732d5cc8081a4',
+    messagingSenderId: '372603808557',
+    projectId: 'chapter-chatters-1b102',
+    databaseURL: 'https://chapter-chatters-1b102-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'chapter-chatters-1b102.appspot.com',
   );
 }

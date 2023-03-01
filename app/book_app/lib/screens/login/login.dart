@@ -13,14 +13,18 @@ class LoginScreen extends StatelessWidget {
         children: [
           Expanded(
             child: ListView(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(10),
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(40.0),
-                  child: SvgPicture.asset("assets/icons/login.svg"),
+                  padding: const EdgeInsets.all(10.0),
+                  child: SvgPicture.asset(
+                    "assets/icons/chat.svg",
+                    height: 250,
+                    width: 250,
+                  ),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 const LoginForm(),
               ],
