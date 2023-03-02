@@ -43,6 +43,7 @@ dependencies:
   google_sign_in: ^6.0.1
   firebase_database: ^10.0.14
   cloud_firestore: ^4.4.3
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:

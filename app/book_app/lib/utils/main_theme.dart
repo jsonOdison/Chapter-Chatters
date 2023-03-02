@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MainTheme {
-  final Color _purple = const Color(0xffA379CD);
+  final Color _purple = const Color(0xffB4E4FF);
   final Color _lightPurple = const Color(0xfff1e6ff);
   final Color _darkerGrey = const Color.fromARGB(255, 74, 73, 73);
   final Color _colorTextTitle = const Color.fromARGB(255, 104, 104, 104);

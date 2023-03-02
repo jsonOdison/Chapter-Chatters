@@ -1,5 +1,6 @@
 import 'package:book_app/states/current_user.dart';
 import 'package:book_app/widgets/container.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -37,7 +38,9 @@ class _SignUpFormState extends State<SignUpForm> {
         );
       }
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 

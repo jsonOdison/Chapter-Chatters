@@ -18,7 +18,7 @@ class LoginScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: SvgPicture.asset(
-                    "assets/icons/chat.svg",
+                    "assets/icons/avatarforbackground.svg",
                     height: 250,
                     width: 250,
                   ),

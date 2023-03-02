@@ -1,12 +1,13 @@
+import 'package:book_app/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class CurrentUser extends ChangeNotifier {
-  late String? _uid;
-  late String? _email;
-  String? get getUid => _uid;
-  String? get getEmail => _email;
+  UserModel _currentUser = UserModel();
+
+  UserModel get getUid => _currentUser;
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   //set the state for login cycle
@@ -14,8 +15,8 @@ class CurrentUser extends ChangeNotifier {
     String retVal = 'error';
     try {
       User firebaseUser = _auth.currentUser!;
-      _uid = firebaseUser.uid;
-      _email = firebaseUser.email!;
+      _currentUser.uid = firebaseUser.uid;
+      _currentUser.email = firebaseUser.email!;
       retVal = 'success';
     } on FirebaseAuthException catch (e) {
       retVal = e.message.toString();
@@ -29,11 +30,13 @@ class CurrentUser extends ChangeNotifier {
     String retVal = 'error';
     try {
       await _auth.signOut();
-      _uid = null;
-      _email = null;
+      _currentUser = UserModel();
+
       retVal = 'success';
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return retVal;
   }
@@ -57,13 +60,14 @@ class CurrentUser extends ChangeNotifier {
           email: email, password: password);
       final user = authResult.user;
       if (user != null) {
-        _uid = user.uid;
-        _email = user.email!;
+        _currentUser.uid = user.uid;
+        _currentUser.email = user.email!;
         retVal = "success";
       }
     } on FirebaseAuthException catch (e) {
       retVal = e.message.toString();
     }
+    notifyListeners();
     return retVal;
   }
 
@@ -84,8 +88,8 @@ class CurrentUser extends ChangeNotifier {
           idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
       UserCredential authResult = await _auth.signInWithCredential(credential);
       //signin to firebase
-      _uid = authResult.user!.uid;
-      _email = authResult.user!.email!;
+      _currentUser.uid = authResult.user!.uid;
+      _currentUser.email = authResult.user!.email!;
       retVal = "success";
     } on FirebaseAuthException catch (e) {
       retVal = e.message.toString();
