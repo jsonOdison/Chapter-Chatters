@@ -1,4 +1,4 @@
-import 'package:book_app/screens/root/root.dart';
+import 'package:book_app/screens/home/home.dart';
 import 'package:book_app/states/current_user.dart';
 import 'package:book_app/utils/main_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -22,7 +22,7 @@ class BookApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'welcome screen',
         theme: MainTheme().buildTheme(),
-        home: const MyRoot(),
+        home: const HomeScreen(),
       ),
     );
   }
