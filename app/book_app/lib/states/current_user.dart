@@ -1,4 +1,5 @@
 import 'package:book_app/models/user.dart';
+import 'package:book_app/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -41,12 +42,20 @@ class CurrentUser extends ChangeNotifier {
     return retVal;
   }
 
-  Future<String> signUpUserWithEmail(String email, String password) async {
+  Future<String> signUpUserWithEmail(
+      String email, String password, String fullName) async {
     String retVal = "error";
+    UserModel user = UserModel();
     try {
-      await _auth.createUserWithEmailAndPassword(
+      UserCredential authResult = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      retVal = "success";
+      user.uid = authResult.user?.uid;
+      user.email = authResult.user?.email;
+      user.fullname = fullName;
+      String returnString = await Database().createUser(user);
+      if (returnString == 'success') {
+        retVal = "success";
+      }
     } on FirebaseAuthException catch (e) {
       retVal = e.message.toString();
     }
@@ -79,6 +88,8 @@ class CurrentUser extends ChangeNotifier {
         'https://www.googleapis.com/auth/contacts.readonly',
       ],
     );
+
+    UserModel user = UserModel();
     try {
       //get the user
       GoogleSignInAccount? googleUser = await googleSignIn.signIn();
@@ -88,6 +99,12 @@ class CurrentUser extends ChangeNotifier {
           idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
       UserCredential authResult = await _auth.signInWithCredential(credential);
       //signin to firebase
+      if (authResult.additionalUserInfo!.isNewUser) {
+        user.uid = authResult.user!.uid;
+        user.email = authResult.user!.email;
+        user.fullname = authResult.user!.displayName;
+        Database().createUser(user);
+      }
       _currentUser.uid = authResult.user!.uid;
       _currentUser.email = authResult.user!.email!;
       retVal = "success";

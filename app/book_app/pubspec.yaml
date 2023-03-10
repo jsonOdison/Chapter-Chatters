@@ -38,7 +38,7 @@ dependencies:
   flutter_svg: ^2.0.1
   firebase_auth: ^4.2.8
   provider: ^6.0.5
-  firebase_core: ^2.6.1
+  firebase_core: ^2.7.1
   flutter_firebase_firestore: ^0.0.1
   google_sign_in: ^6.0.1
   firebase_database: ^10.0.14

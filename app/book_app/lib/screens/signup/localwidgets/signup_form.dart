@@ -20,11 +20,12 @@ class _SignUpFormState extends State<SignUpForm> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
 
-  void _signUpUser(String email, String password, BuildContext context) async {
+  void _signUpUser(String email, String password, BuildContext context,
+      String fullName) async {
     CurrentUser currentUser = Provider.of<CurrentUser>(context, listen: false);
     try {
       String returString =
-          await currentUser.signUpUserWithEmail(email, password);
+          await currentUser.signUpUserWithEmail(email, password, fullName);
       if (returString == 'success') {
         // ignore: use_build_context_synchronously
         Navigator.pop(context);
@@ -98,8 +99,8 @@ class _SignUpFormState extends State<SignUpForm> {
             ),
             onPressed: () {
               if (_passwordController.text == _confirmPasswordController.text) {
-                _signUpUser(
-                    _emailController.text, _passwordController.text, context);
+                _signUpUser(_emailController.text, _passwordController.text,
+                    context, _fullNameController.text);
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
