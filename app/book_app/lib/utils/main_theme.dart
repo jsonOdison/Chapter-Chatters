@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 
 class MainTheme {
-  final Color _purple = const Color(0xffB4E4FF);
-  final Color _lightPurple = const Color(0xfff1e6ff);
+  final Color _canvasColor = const Color(0xff292731);
+  final Color _cardColor = const Color(0xffFAF5E8);
+  final Color _darkBrown = const Color(0xff7C7461);
   final Color _darkerGrey = const Color.fromARGB(255, 74, 73, 73);
-  final Color _colorTextTitle = const Color.fromARGB(255, 104, 104, 104);
+  final Color _colorTextTitle = const Color(0xff43434F);
 
   ThemeData buildTheme() {
     return ThemeData(
-      canvasColor: _purple,
-      primaryColor: _purple,
+      fontFamily: 'Newsreader',
+      canvasColor: _canvasColor,
+      primaryColor: _cardColor,
       hintColor: _darkerGrey,
       //Text
       textTheme: TextTheme(
         displayLarge: TextStyle(
-          fontSize: 72.0,
-          fontWeight: FontWeight.bold,
-          color: _darkerGrey,
+          fontSize: 20,
+          backgroundColor: _colorTextTitle,
         ),
         titleLarge: TextStyle(
             color: _colorTextTitle,
@@ -27,15 +28,15 @@ class MainTheme {
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
-          borderSide: BorderSide(color: _lightPurple),
+          borderSide: BorderSide(color: _darkBrown),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
-          borderSide: BorderSide(color: _purple),
+          borderSide: BorderSide(color: _canvasColor),
         ),
       ),
       buttonTheme: ButtonThemeData(
-        buttonColor: _lightPurple,
+        buttonColor: _darkBrown,
         padding: const EdgeInsets.symmetric(horizontal: 20),
         minWidth: 200,
         height: 40,

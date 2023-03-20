@@ -22,4 +22,24 @@ class Database {
 
     return retVal;
   }
+
+  Future<UserModel?> getUserInfo(String uid) async {
+    UserModel retVal = UserModel();
+    try {
+      DocumentSnapshot docSnap =
+          await _firestore.collection('users').doc(uid).get();
+      retVal.uid = uid;
+      Map<String, dynamic> data = docSnap.data() as Map<String, dynamic>;
+      retVal.fullname = data['fullname'];
+      retVal.email = data['email'];
+      retVal.accountCreated = data['accountCreated'];
+      retVal.groupId = data['groupId'];
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+
+    return null;
+  }
 }

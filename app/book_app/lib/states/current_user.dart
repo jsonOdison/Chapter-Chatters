@@ -2,12 +2,13 @@ import 'package:book_app/models/user.dart';
 import 'package:book_app/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class CurrentUser extends ChangeNotifier {
-  UserModel _currentUser = UserModel();
+  UserModel _currentUser = UserModel(fullname: '', uid: '');
 
-  UserModel get getUid => _currentUser;
+  UserModel? get getUid => _currentUser;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -16,8 +17,8 @@ class CurrentUser extends ChangeNotifier {
     String retVal = 'error';
     try {
       User firebaseUser = _auth.currentUser!;
-      _currentUser.uid = firebaseUser.uid;
-      _currentUser.email = firebaseUser.email!;
+      // await Database().getUserInfo(firebaseUser.uid);
+      _currentUser = (await Database().getUserInfo(firebaseUser.uid))!;
       retVal = 'success';
     } on FirebaseAuthException catch (e) {
       retVal = e.message.toString();
@@ -49,7 +50,7 @@ class CurrentUser extends ChangeNotifier {
     try {
       UserCredential authResult = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      user.uid = authResult.user?.uid;
+      user.uid = authResult.user!.uid;
       user.email = authResult.user?.email;
       user.fullname = fullName;
       String returnString = await Database().createUser(user);
@@ -67,14 +68,15 @@ class CurrentUser extends ChangeNotifier {
     try {
       UserCredential authResult = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      final user = authResult.user;
-      if (user != null) {
-        _currentUser.uid = user.uid;
-        _currentUser.email = user.email!;
-        retVal = "success";
-      }
-    } on FirebaseAuthException catch (e) {
+      await Database().getUserInfo(authResult.user!.uid);
+      // _currentUser = await Database().getUserInfo(authResult.user!.uid);
+      retVal = 'success';
+    } on PlatformException catch (e) {
       retVal = e.message.toString();
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
     notifyListeners();
     return retVal;
@@ -101,15 +103,19 @@ class CurrentUser extends ChangeNotifier {
       //signin to firebase
       if (authResult.additionalUserInfo!.isNewUser) {
         user.uid = authResult.user!.uid;
-        user.email = authResult.user!.email;
-        user.fullname = authResult.user!.displayName;
+        user.email = authResult.user?.email;
+        user.fullname = authResult.user!.displayName!;
         Database().createUser(user);
       }
-      _currentUser.uid = authResult.user!.uid;
-      _currentUser.email = authResult.user!.email!;
-      retVal = "success";
-    } on FirebaseAuthException catch (e) {
+      // await Database().getUserInfo(authResult.user!.uid);
+      _currentUser = (await Database().getUserInfo(authResult.user!.uid))!;
+      retVal = 'success';
+    } on PlatformException catch (e) {
       retVal = e.message.toString();
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return retVal;
   }

@@ -6,10 +6,13 @@ class UserModel {
   String? email;
   String? fullname;
   Timestamp? accountCreated;
+  List<String>? groupId;
+
   UserModel({
     this.uid,
     this.email,
     this.fullname,
     this.accountCreated,
+    this.groupId,
   });
 }
