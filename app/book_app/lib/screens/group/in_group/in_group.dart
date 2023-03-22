@@ -1,29 +1,14 @@
 import 'package:book_app/screens/profile/localwidgets/profile_card.dart';
-import 'package:book_app/services/database.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class InGroup extends StatefulWidget {
+class InGroup extends StatelessWidget {
   const InGroup({super.key});
-
-  @override
-  State<InGroup> createState() => _InGroupState();
-}
-
-class _InGroupState extends State<InGroup> {
-  void show() async {
-    var f = FirebaseAuth.instance;
-
-    await Database().getUserInfo(f.currentUser!.uid);
-  }
-
   @override
   Widget build(BuildContext context) {
-    show();
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
+          padding: const EdgeInsets.only(top: 60, left: 20, right: 20),
           child: Column(
             children: [
               const CustomCard(),

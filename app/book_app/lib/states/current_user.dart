@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class CurrentUser extends ChangeNotifier {
-  UserModel _currentUser = UserModel(fullname: '', uid: '');
+  UserModel _currentUser = UserModel(email: '', fullname: '', uid: '');
 
   UserModel? get getUid => _currentUser;
 
@@ -32,7 +32,7 @@ class CurrentUser extends ChangeNotifier {
     String retVal = 'error';
     try {
       await _auth.signOut();
-      _currentUser = UserModel();
+      _currentUser = UserModel(email: '', fullname: '', uid: '');
 
       retVal = 'success';
     } catch (e) {
@@ -46,12 +46,12 @@ class CurrentUser extends ChangeNotifier {
   Future<String> signUpUserWithEmail(
       String email, String password, String fullName) async {
     String retVal = "error";
-    UserModel user = UserModel();
+    UserModel user = UserModel(email: '', fullname: '', uid: '');
     try {
       UserCredential authResult = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       user.uid = authResult.user!.uid;
-      user.email = authResult.user?.email;
+      user.email = authResult.user!.email!;
       user.fullname = fullName;
       String returnString = await Database().createUser(user);
       if (returnString == 'success') {
@@ -91,7 +91,7 @@ class CurrentUser extends ChangeNotifier {
       ],
     );
 
-    UserModel user = UserModel();
+    UserModel user = UserModel(email: '', fullname: '', uid: '');
     try {
       //get the user
       GoogleSignInAccount? googleUser = await googleSignIn.signIn();
@@ -103,7 +103,7 @@ class CurrentUser extends ChangeNotifier {
       //signin to firebase
       if (authResult.additionalUserInfo!.isNewUser) {
         user.uid = authResult.user!.uid;
-        user.email = authResult.user?.email;
+        user.email = authResult.user!.email!;
         user.fullname = authResult.user!.displayName!;
         Database().createUser(user);
       }

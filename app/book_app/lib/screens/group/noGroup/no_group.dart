@@ -1,12 +1,23 @@
+import 'package:book_app/screens/group/create_group/create_group.dart';
+import 'package:book_app/screens/group/join_group/join_group.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class NoGroup extends StatelessWidget {
   const NoGroup({super.key});
-  // void _gotoJoin() {}
-  // void _gotoCreate() {}
+
   @override
   Widget build(BuildContext context) {
+    void gotoJoin(BuildContext context) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const JoinGroup()));
+    }
+
+    void gotoCreate(BuildContext context) {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const CreateGroup()));
+    }
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -47,14 +58,14 @@ class NoGroup extends StatelessWidget {
                 child: Card(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
+                    children: [
                       ElevatedButton(
-                        onPressed: null,
-                        child: Text("Join"),
+                        onPressed: () => gotoJoin(context),
+                        child: const Text("Join"),
                       ),
                       ElevatedButton(
-                        onPressed: null,
-                        child: Text("Create"),
+                        onPressed: () => gotoCreate(context),
+                        child: const Text("Create"),
                       ),
                     ],
                   ),

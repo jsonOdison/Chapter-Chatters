@@ -2,16 +2,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
-  String? uid;
-  String? email;
-  String? fullname;
-  Timestamp? accountCreated;
-  List<String>? groupId;
+  late String uid;
+  late String email;
+  late String fullname;
+  late Timestamp? accountCreated;
+  late List<String>? groupId;
 
   UserModel({
-    this.uid,
-    this.email,
-    this.fullname,
+    required this.uid,
+    required this.email,
+    required this.fullname,
     this.accountCreated,
     this.groupId,
   });

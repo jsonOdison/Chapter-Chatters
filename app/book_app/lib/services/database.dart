@@ -24,10 +24,10 @@ class Database {
   }
 
   Future<UserModel?> getUserInfo(String uid) async {
-    UserModel retVal = UserModel();
+    UserModel retVal = UserModel(email: '', fullname: '', uid: '');
     try {
       DocumentSnapshot docSnap =
-          await _firestore.collection('users').doc(uid).get();
+          await _firestore.collection("users").doc(uid).get();
       retVal.uid = uid;
       Map<String, dynamic> data = docSnap.data() as Map<String, dynamic>;
       retVal.fullname = data['fullname'];
@@ -41,5 +41,53 @@ class Database {
     }
 
     return null;
+  }
+
+  Future<String> createGroup(String groupName, String userUid) async {
+    String retVal = 'error';
+    List<String> members = [];
+    try {
+      members.add(userUid);
+      print(userUid);
+      print(members);
+      DocumentReference docRef = await _firestore.collection("groups").add({
+        'name': groupName,
+        'leader': userUid,
+        'members': members,
+        'groupCreated': Timestamp.now(),
+      });
+
+      await _firestore.collection("users").doc(userUid).update({
+        'groupId': docRef.id,
+      });
+      retVal = 'success';
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+
+    return retVal;
+  }
+
+  Future<String> joinGroup(String groupId, String userUid) async {
+    String retVal = 'error';
+    List<String> members = [];
+    try {
+      members.add(userUid);
+      await _firestore.collection("groups").doc(groupId).update({
+        'members': FieldValue.arrayUnion(members),
+      });
+      await _firestore.collection("users").doc(userUid).update({
+        'groupId': groupId,
+      });
+      retVal = 'success';
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+
+    return retVal;
   }
 }

@@ -1,7 +1,7 @@
 import 'package:book_app/screens/entry.dart';
 import 'package:book_app/screens/home/home.dart';
 import 'package:book_app/screens/login/login.dart';
-import 'package:book_app/screens/noGroup/no_group.dart';
+import 'package:book_app/screens/group/noGroup/no_group.dart';
 import 'package:book_app/states/current_user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

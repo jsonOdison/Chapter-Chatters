@@ -1,10 +1,10 @@
+import 'package:book_app/screens/group/noGroup/no_group.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 import 'Profile/profile.dart';
-import 'group/group.dart';
 import 'home/home.dart';
 import 'library.dart/library.dart';
 
@@ -21,7 +21,7 @@ class _EntryState extends State<Entry> {
   final List<Widget> _screens = [
     const HomeScreen(),
     const Library(),
-    const InGroup(),
+    const NoGroup(),
     const Profile(),
   ];
 
