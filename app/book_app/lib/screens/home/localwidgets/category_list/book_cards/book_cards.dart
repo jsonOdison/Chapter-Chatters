@@ -26,18 +26,32 @@ class _BookCardState extends State<BookCard> {
 
 buildBookCard(String path) {
   return Padding(
-    padding: const EdgeInsets.only(right: 16.0),
-    child: Card(
-      child: Container(
-        height: 230,
-        width: 150,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(path),
-            fit: BoxFit.cover,
+    padding: const EdgeInsets.only(right: 8.0),
+    child: Column(
+      children: [
+        Card(
+          elevation: 30,
+          child: Container(
+            height: 150,
+            width: 100,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              image: DecorationImage(
+                image: AssetImage(path),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
         ),
-      ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: const [
+            Text("rating"),
+            Text("Name book"),
+            Text("Author"),
+          ],
+        )
+      ],
     ),
   );
 }

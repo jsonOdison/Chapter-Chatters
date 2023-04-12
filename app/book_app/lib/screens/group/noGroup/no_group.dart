@@ -1,5 +1,5 @@
 import 'package:book_app/screens/group/create_group/create_group.dart';
-import 'package:book_app/screens/group/join_group/join_group.dart';
+import 'package:book_app/screens/group/search_group/search_group.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,8 +9,8 @@ class NoGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void gotoJoin(BuildContext context) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const JoinGroup()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const SearchGroup()));
     }
 
     void gotoCreate(BuildContext context) {
@@ -19,14 +19,6 @@ class NoGroup extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: const Color(0xff292731),
-        leading: const IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: null,
-        ),
-      ),
       body: Center(
         child: Padding(
           padding:

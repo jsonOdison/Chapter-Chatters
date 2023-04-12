@@ -1,8 +1,4 @@
-import 'package:book_app/screens/root/root.dart';
-import 'package:book_app/services/database.dart';
-import 'package:book_app/states/current_user.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class CreateGroup extends StatefulWidget {
   const CreateGroup({super.key});
@@ -13,18 +9,18 @@ class CreateGroup extends StatefulWidget {
 
 class _CreateGroupState extends State<CreateGroup> {
   void _createGroup(BuildContext context, String groupName) async {
-    CurrentUser currentUser = Provider.of<CurrentUser>(context, listen: false);
-    String returnString =
-        await Database().createGroup(groupName, currentUser.getUid!.uid);
-    if (returnString == 'success') {
-      // ignore: use_build_context_synchronously
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const MyRoot(),
-          ),
-          (route) => false);
-    }
+    // CurrentUser currentUser = Provider.of<CurrentUser>(context, listen: false);
+    // String returnString =
+    //     await DatabaseService().createGroup(groupName, currentUser.getUid!.uid);
+    // if (returnString == 'success') {
+    //   // ignore: use_build_context_synchronously
+    //   Navigator.pushAndRemoveUntil(
+    //       context,
+    //       MaterialPageRoute(
+    //         builder: (context) => const MyRoot(),
+    //       ),
+    //       (route) => false);
+    // }
   }
 
   final TextEditingController _groupNameController = TextEditingController();

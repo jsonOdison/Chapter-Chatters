@@ -1,5 +1,6 @@
-import 'package:book_app/screens/home/localwidgets/category_list/discovery_section.dart/discovery.dart';
 import 'package:flutter/material.dart';
+
+import 'book_cards/book_cards.dart';
 
 class CategoryList extends StatefulWidget {
   const CategoryList({super.key});
@@ -11,32 +12,32 @@ class CategoryList extends StatefulWidget {
 class _CategoryListState extends State<CategoryList> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      // padding for the parent widget
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        children: const [
-          // Row(
-          //   //padding for the title section widget
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   children: [
-          //     Text(
-          //       "Category",
-          //       style: GoogleFonts.newsreader(
-          //           color: Colors.redAccent, fontSize: 25),
-          //     ),
-          //     Text("See more",
-          //         style: GoogleFonts.poppins(color: Colors.white, fontSize: 15))
-          //   ],
-          // ),
-          // const SizedBox(
-          //   height: 10,
-          // ),
-          // const Tabs(),
-
-          DiscoverCategory(),
-        ],
-      ),
+    return Column(
+      children: [
+        Row(
+          //padding for the title section widget
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "Continue Reading",
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.copyWith(fontSize: 20),
+            ),
+            Text(
+              "view all",
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                  fontSize: 20,
+                  color: const Color.fromARGB(255, 162, 160, 160)),
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        const BookCard(),
+      ],
     );
   }
 }

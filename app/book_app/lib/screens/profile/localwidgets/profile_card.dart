@@ -13,8 +13,9 @@ class _CustomCardState extends State<CustomCard> {
     return Stack(
       children: <Widget>[
         Card(
+          color: const Color.fromARGB(255, 189, 186, 186),
           child: SizedBox(
-            height: 150.0,
+            height: 200.0,
             width: 358,
             child: Column(
               children: [

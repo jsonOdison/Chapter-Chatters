@@ -1,30 +1,44 @@
 import 'package:flutter/material.dart';
 
 class MainTheme {
-  final Color _canvasColor = const Color(0xff292731);
-  final Color _cardColor = const Color(0xffFAF5E8);
+  final Color _canvasColor = const Color.fromARGB(255, 255, 255, 255);
+  final Color _primaryColor = const Color(0xff7891e1);
   final Color _darkBrown = const Color(0xff7C7461);
-  final Color _darkerGrey = const Color.fromARGB(255, 74, 73, 73);
   final Color _colorTextTitle = const Color(0xff43434F);
 
   ThemeData buildTheme() {
     return ThemeData(
-      fontFamily: 'Newsreader',
-      canvasColor: _canvasColor,
-      primaryColor: _cardColor,
-      hintColor: _darkerGrey,
+      fontFamily: 'Karla',
+      scaffoldBackgroundColor: Colors.white,
+      primaryColor: _primaryColor,
+      // app bar theme
+      appBarTheme: const AppBarTheme(
+        color: Colors.white,
+        elevation: 0,
+        iconTheme: IconThemeData(color: Colors.black),
+      ),
       //Text
       textTheme: TextTheme(
-        displayLarge: TextStyle(
-          fontSize: 20,
-          backgroundColor: _colorTextTitle,
+        displayLarge: const TextStyle(
+          fontFamily: 'Newsreader',
+          fontSize: 40,
+          fontWeight: FontWeight.w700,
+          color: Color.fromARGB(255, 94, 92, 92),
+        ),
+        displayMedium: const TextStyle(
+          fontFamily: 'Newsreader',
+          fontSize: 30,
+          fontWeight: FontWeight.w600,
+          color: Color.fromARGB(255, 94, 92, 92),
         ),
         titleLarge: TextStyle(
+            fontFamily: 'Rubik',
             color: _colorTextTitle,
-            fontSize: 25.0,
+            fontSize: 35.0,
             fontWeight: FontWeight.bold),
         bodyMedium: const TextStyle(fontSize: 14.0),
       ),
+
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
@@ -37,7 +51,7 @@ class MainTheme {
       ),
       buttonTheme: ButtonThemeData(
         buttonColor: _darkBrown,
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 50),
         minWidth: 200,
         height: 40,
         shape: RoundedRectangleBorder(
