@@ -30,7 +30,7 @@ buildBookCard(String path) {
     child: Column(
       children: [
         Card(
-          elevation: 30,
+          elevation: 10,
           child: Container(
             height: 150,
             width: 100,

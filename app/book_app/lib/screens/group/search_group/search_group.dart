@@ -51,18 +51,17 @@ class _SearchGroupState extends State<SearchGroup> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.green,
-        title: const Text(
+        backgroundColor: Colors.white,
+        title: Text(
           "Search",
-          style: TextStyle(
-              fontSize: 27, fontWeight: FontWeight.bold, color: Colors.white),
+          style: Theme.of(context).textTheme.titleLarge,
         ),
       ),
       body: Column(
         children: [
           Container(
             height: 90,
-            color: Colors.green,
+            color: Colors.white.withOpacity(0.9),
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: Row(
               children: [
@@ -70,31 +69,31 @@ class _SearchGroupState extends State<SearchGroup> {
                     child: TextField(
                   controller: searchController,
                   style: const TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: Colors.green.shade800,
+                    fillColor: Colors.white.withOpacity(0.8),
                     enabledBorder: OutlineInputBorder(
                       borderSide:
-                          BorderSide(color: Colors.green.shade400, width: 2),
+                          BorderSide(color: Colors.grey.shade400, width: 2),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide:
-                          BorderSide(color: Colors.green.shade600, width: 2),
+                          BorderSide(color: Colors.grey.shade600, width: 2),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     border: OutlineInputBorder(
                       borderSide:
-                          BorderSide(color: Colors.green.shade400, width: 2),
+                          BorderSide(color: Colors.grey.shade400, width: 2),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     hintText: "Search for a Group",
                     hintStyle: const TextStyle(
-                      color: Colors.white,
+                      color: Colors.grey,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
@@ -105,12 +104,11 @@ class _SearchGroupState extends State<SearchGroup> {
                   child: Container(
                     width: 40,
                     height: 40,
-                    decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(40)),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(40)),
                     child: const Icon(
                       Icons.search,
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ),
                 )

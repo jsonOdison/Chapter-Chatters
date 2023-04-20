@@ -1,5 +1,4 @@
 import 'package:book_app/helper/user_helper.dart';
-import 'package:book_app/screens/library/library.dart';
 import 'package:book_app/screens/login/login.dart';
 import 'package:book_app/services/authentication/auth_services.dart';
 import 'package:book_app/widgets/widgets.dart';
@@ -10,6 +9,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'Profile/profile.dart';
 import 'group/root_group.dart';
 import 'home/home.dart';
+import 'search_book/search_book.dart';
 
 class Entry extends StatefulWidget {
   const Entry({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class _EntryState extends State<Entry> {
 
   final List<Widget> _screens = [
     const HomeScreen(),
-    const Library(),
+    const SearchBook(),
     const GroupMainPage(),
     const Profile(),
   ];
@@ -223,8 +223,8 @@ class _EntryState extends State<Entry> {
                 textColor: Colors.white,
               ),
               GButton(
-                icon: Icons.library_books,
-                text: "Library",
+                icon: Icons.search,
+                text: "Search Books",
                 iconActiveColor: Colors.white,
                 textColor: Colors.white,
               ),

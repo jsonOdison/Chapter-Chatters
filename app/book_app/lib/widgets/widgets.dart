@@ -51,3 +51,5 @@ void showSnackBar(context, message, color) {
     ),
   );
 }
+
+//pop up dialog 
