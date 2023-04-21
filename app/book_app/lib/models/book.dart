@@ -1,8 +1,13 @@
-// class Book {
-//   String title;
-//   String author;
-//   int id;
-//   double rating;
+class Book {
+  final String id;
+  final String title;
+  final List<String> authors;
+  final String thumbnail;
 
-//   Book({this.title, this.author, this.id, this.rating});
-// }
+  Book({
+    required this.id,
+    required this.title,
+    required this.authors,
+    required this.thumbnail,
+  });
+}

@@ -11,7 +11,7 @@ class SearchBook extends StatefulWidget {
 }
 
 class _SearchBookState extends State<SearchBook> {
-  TextEditingController searchController = TextEditingController();
+  TextEditingController searchBookController = TextEditingController();
   List<dynamic> books = [];
 
   @override
@@ -19,23 +19,92 @@ class _SearchBookState extends State<SearchBook> {
     return Scaffold(
       body: Column(
         children: [
-          Row(
-            children: [
-              GestureDetector(
-                onTap: () => fetchBooks(searchController.text),
-                child: Container(
-                  width: 40,
-                  height: 40,
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(40)),
-                  child: const Icon(
-                    Icons.search,
-                    color: Colors.black,
+          Container(
+            height: 90,
+            color: Colors.white.withOpacity(0.9),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            child: Row(
+              children: [
+                SizedBox(
+                    height: 300,
+                    width: 320,
+                    child: TextField(
+                      controller: searchBookController,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white.withOpacity(0.8),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.grey.shade400, width: 2),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.grey.shade600, width: 2),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.grey.shade400, width: 2),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        hintText: "Search for a Group",
+                        hintStyle: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    )),
+                GestureDetector(
+                  onTap: () => fetchBooks(searchBookController.text),
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(40)),
+                    child: const Icon(
+                      Icons.search,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
+          Expanded(
+              child: ListView.builder(
+            itemCount: books.length,
+            itemBuilder: (context, index) {
+              var book = books[index];
+              var id = book['id'];
+              var bookTitle = book['volumeInfo']['title'];
+              var authors = book['volumeInfo']['authors'];
+              var authorString =
+                  authors != null ? authors.join(', ') : 'Unknown';
+              var img = book['volumeInfo']['imageLinks'] != null
+                  ? book['volumeInfo']['imageLinks']['thumbnail']
+                  : 'http://via.placeholder.com/200x150';
+
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListTile(
+                  leading: Image.network(
+                    img,
+                    height: 1200,
+                    width: 50,
+                  ),
+                  title: Text(bookTitle),
+                  subtitle: Text("by $authorString"),
+                ),
+              );
+            },
+          ))
         ],
       ),
     );
@@ -52,7 +121,6 @@ class _SearchBookState extends State<SearchBook> {
       final json = jsonDecode(body);
       setState(() {
         books = json['items'];
-        print(books);
       });
     } catch (error) {
       if (kDebugMode) {
