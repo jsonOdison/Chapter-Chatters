@@ -11,7 +11,8 @@ class DatabaseService {
       FirebaseFirestore.instance.collection("users");
   final CollectionReference groupCollection =
       FirebaseFirestore.instance.collection("groups");
-
+  final CollectionReference libraryCollection =
+      FirebaseFirestore.instance.collection('library');
   //saving the user data
 
   Future savingUserData(String fullName, String email) async {
@@ -20,7 +21,8 @@ class DatabaseService {
       "email": email,
       "groups": [],
       "profilePic": "",
-      "uid": uid
+      "uid": uid,
+      "library": []
     });
   }
 
@@ -35,6 +37,10 @@ class DatabaseService {
   getUserGroups() async {
     return userCollection.doc(uid).snapshots();
   }
+
+  // Future<DocumentSnapshot<Map<String, dynamic>>> getUserLibrary() async {
+  //   return userCollection.doc(uid).get();
+  // }
 
   //creating a group
   Future createGroup(String userName, String id, String groupName) async {
@@ -124,5 +130,27 @@ class DatabaseService {
         "members": FieldValue.arrayUnion(["${uid}_$userName"])
       });
     }
+  }
+
+  //toggling if User has a library First
+  Future<bool> isLibraryEmpty() async {
+    final userRef = FirebaseFirestore.instance.collection('users').doc(uid);
+    final userData = await userRef.get();
+    final libraryData = userData.data()?['library'];
+    return libraryData == null || libraryData.isEmpty;
+  }
+
+  //add books to libary
+  Future<void> addBookToLibrary(String bookId, String bookName) async {
+    final userRef = FirebaseFirestore.instance.collection('users').doc(uid);
+    Map<String, dynamic> bookData = {
+      bookId: {
+        'id': bookId,
+        'name': bookName,
+      },
+    };
+    return await userRef.update({
+      'library': FieldValue.arrayUnion([bookData])
+    });
   }
 }

@@ -13,6 +13,41 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(70),
+        child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: AppBar(
+              backgroundColor: Colors.white,
+              elevation: 0,
+              centerTitle: true,
+              title: const Text(
+                "Profile",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IconButton(
+                    icon: const Icon(Icons.notifications),
+                    color: Colors.black,
+                    onPressed: () {
+                      // Do something
+                    },
+                  ),
+                ),
+                const CircleAvatar(
+                  radius: 20,
+                  backgroundImage:
+                      AssetImage("assets/icons/avatar_profile.png"),
+                ),
+              ],
+            )),
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 50),
         child: Column(

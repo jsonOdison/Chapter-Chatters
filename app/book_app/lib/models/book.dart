@@ -1,13 +1,12 @@
-class Book {
+class BookModel {
   final String id;
   final String title;
-  final List<String> authors;
   final String thumbnail;
-
-  Book({
+  final List<String> author;
+  BookModel({
     required this.id,
     required this.title,
-    required this.authors,
     required this.thumbnail,
+    required this.author,
   });
 }

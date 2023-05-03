@@ -34,6 +34,13 @@ void nextScreenReplacement(context, page) {
   );
 }
 
+void nextScreenAsyncReplacement(BuildContext context, screen) {
+  Navigator.of(context).pushAndRemoveUntil(
+    MaterialPageRoute(builder: (BuildContext context) => screen()),
+    (Route<dynamic> route) => false,
+  );
+}
+
 void showSnackBar(context, message, color) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
@@ -52,4 +59,64 @@ void showSnackBar(context, message, color) {
   );
 }
 
-//pop up dialog 
+//genres
+final List<String> keywords = [
+  "Action and Adventure",
+  "Classic",
+  "Comic and Graphic Novel",
+  "Crime and Detective",
+  "Drama",
+  "Fairy Tale",
+  "Fantasy",
+  "Historical",
+  "Horror",
+  "Humor",
+  "Mystery",
+  "Mythology",
+  "Romance",
+  "Science Fiction",
+  "Short Story",
+  "Suspense/Thriller",
+  "Biography/Autobiography",
+  "Self-Help Book",
+];
+final Map<String, String> genreImagesUrl = {
+  "Action and Adventure": "https://example.com/action-and-adventure.jpg",
+  "Classic": "https://example.com/classic.jpg",
+  "Comic and Graphic Novel": "https://example.com/comic-and-graphic-novel.jpg",
+  "Crime and Detective": "https://example.com/crime-and-detective.jpg",
+  "Drama": "https://example.com/drama.jpg",
+  "Fairy Tale": "https://example.com/fairy-tale.jpg",
+  "Fantasy": "https://example.com/fantasy.jpg",
+  "Historical": "https://example.com/historical.jpg",
+  "Horror": "https://example.com/horror.jpg",
+  "Humor": "https://example.com/humor.jpg",
+  "Mystery": "https://example.com/mystery.jpg",
+  "Mythology": "https://example.com/mythology.jpg",
+  "Romance": "https://example.com/romance.jpg",
+  "Science Fiction": "https://example.com/science-fiction.jpg",
+  "Short Story": "https://example.com/short-story.jpg",
+  "Suspense/Thriller": "https://example.com/suspense-thriller.jpg",
+  "Biography/Autobiography": "https://example.com/biography-autobiography.jpg",
+  "Self-Help Book": "https://example.com/self-help-book.jpg",
+};
+final List<Color> categoryColors = [
+  Colors.red,
+  Colors.blue,
+  Colors.green,
+  Colors.yellow,
+  Colors.purple,
+  Colors.orange,
+  Colors.teal,
+  Colors.brown,
+  Colors.grey,
+  Colors.indigo,
+  Colors.pink,
+  Colors.amber,
+  Colors.lime,
+  Colors.cyan,
+  Colors.deepPurple,
+  Colors.deepOrange,
+  Colors.lightBlue,
+  Colors.lightGreen,
+];

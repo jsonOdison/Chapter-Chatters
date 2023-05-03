@@ -55,11 +55,47 @@ class _GroupMainPageState extends State<GroupMainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(70),
+        child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: AppBar(
+              backgroundColor: Colors.white,
+              elevation: 0,
+              centerTitle: true,
+              title: const Text(
+                "Groups",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IconButton(
+                    icon: const Icon(Icons.notifications),
+                    color: Colors.black,
+                    onPressed: () {
+                      // Do something
+                    },
+                  ),
+                ),
+                const CircleAvatar(
+                  radius: 20,
+                  backgroundImage:
+                      AssetImage("assets/icons/avatar_profile.png"),
+                ),
+              ],
+            )),
+      ),
       body: groupList(),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
+            heroTag: 'searchgroup',
             onPressed: () {
               nextScreen(context, const SearchGroup());
             },
@@ -75,6 +111,7 @@ class _GroupMainPageState extends State<GroupMainPage> {
             width: 20,
           ),
           FloatingActionButton(
+            heroTag: 'addgroup',
             onPressed: () {
               popUpDialog(context);
             },
@@ -234,7 +271,7 @@ class _GroupMainPageState extends State<GroupMainPage> {
             height: 20,
           ),
           const Text(
-            "You are not in any group , tap on the add icon to create a gorup or also search for top on the top bar above",
+            "You are not in any group , tap on the add icon to create a group or also search for one below",
             textAlign: TextAlign.center,
           )
         ],
