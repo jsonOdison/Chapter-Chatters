@@ -109,7 +109,7 @@ class _SearchBookState extends State<SearchBook> {
                               BorderSide(color: Colors.grey.shade400, width: 2),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        hintText: "Search for a book",
+                        hintText: "isbn , author , title ",
                         hintStyle: const TextStyle(
                           color: Colors.grey,
                           fontSize: 16,

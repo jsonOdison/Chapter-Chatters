@@ -4,18 +4,10 @@ import 'package:flutter/foundation.dart';
 import '../../models/book.dart';
 import 'package:http/http.dart' as http;
 
+import '../../models/book_details.dart';
+
 class BooksApi {
   // get authors
-  List<String> getAuthors(Map<String, dynamic> volumeInfo) {
-    final authorsJson = volumeInfo['authors'];
-    if (authorsJson == null) {
-      return [];
-    }
-    if (authorsJson is String) {
-      return [authorsJson];
-    }
-    return List<String>.from(authorsJson);
-  }
 
   Future<List<BookModel>> fetchBooks(String searchTerm,
       {int? maxResults}) async {
@@ -106,6 +98,63 @@ class BooksApi {
         print('Error fetching books by category: $error');
       }
       throw Exception('Error fetching books by category: $error');
+    }
+  }
+
+  List<String> getAuthors(Map<String, dynamic> volumeInfo) {
+    final authorsJson = volumeInfo['authors'];
+    if (authorsJson == null) {
+      return [];
+    }
+    if (authorsJson is String) {
+      return [authorsJson];
+    }
+    return List<String>.from(authorsJson);
+  }
+
+  //get book details when i click on any one of them ,
+
+  // other methods
+
+  Future<BookDetails> fetchBookDetails(String bookId) async {
+    try {
+      final response = await http.get(
+          Uri.parse('https://www.googleapis.com/books/v1/volumes/$bookId'));
+
+      if (response.statusCode == 200) {
+        final body = response.body;
+        final json = jsonDecode(body);
+        final volumeInfo = json['volumeInfo'];
+
+        final title = volumeInfo['title'];
+        final thumbnail = volumeInfo['imageLinks'] != null
+            ? volumeInfo['imageLinks']['thumbnail']
+            : 'http://via.placeholder.com/200x150';
+        final authors = getAuthors(volumeInfo);
+        final description = volumeInfo['description'] ?? '';
+        final pageCount = volumeInfo['pageCount'] ?? 0;
+        final previewLink = volumeInfo['previewLink'] ?? '';
+
+        return BookDetails(
+          id: bookId,
+          title: title,
+          thumbnail: thumbnail,
+          authors: authors,
+          description: description,
+          pageCount: pageCount,
+          previewLink: previewLink,
+        );
+      } else {
+        if (kDebugMode) {
+          print('Error fetching book details: ${response.statusCode}');
+        }
+        throw Exception('Error fetching book details: ${response.statusCode}');
+      }
+    } catch (error) {
+      if (kDebugMode) {
+        print('Error fetching book details: $error');
+      }
+      throw Exception('Error fetching book details: $error');
     }
   }
 }

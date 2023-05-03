@@ -1,6 +1,9 @@
+import 'package:book_app/services/books_api/fetch_books.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../../models/book_details.dart';
 
 // assume you have access to the uid
 final userRef = FirebaseFirestore.instance
@@ -8,7 +11,9 @@ final userRef = FirebaseFirestore.instance
     .doc(FirebaseAuth.instance.currentUser!.uid);
 
 class Library extends StatelessWidget {
-  const Library({super.key});
+  const Library({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,7 @@ class Library extends StatelessWidget {
             elevation: 0,
             centerTitle: true,
             title: const Text(
-              "Categories",
+              "Library",
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 20,
@@ -72,25 +77,44 @@ class Library extends StatelessWidget {
               final book = library[index];
               final bookData = book.values.first as Map<String, dynamic>?;
               final bookName = bookData?['name'] as String?;
-              final bookId = bookData?['id'] as String?;
-              return Card(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 150,
-                      child: Center(
-                        child: Text(
-                            softWrap: true,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            bookName ?? 'Unknown'),
+              final bookId = bookData?['id'] as String;
+
+              return FutureBuilder<BookDetails>(
+                future: BooksApi().fetchBookDetails(bookId),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    final bookDetails = snapshot.data!;
+                    return Card(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 150,
+                            child: Center(
+                              child: Text(
+                                bookDetails.title,
+                                softWrap: true,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Image.network(
+                            bookDetails.thumbnail ?? '',
+                            width: 100,
+                            height: 150,
+                            fit: BoxFit.cover,
+                          ),
+                        ],
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(bookId ?? ''),
-                  ],
-                ),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+                    return const SizedBox.shrink();
+                  }
+                },
               );
             },
           );
