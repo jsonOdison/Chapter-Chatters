@@ -13,7 +13,7 @@ class _CustomCardState extends State<CustomCard> {
     return Stack(
       children: <Widget>[
         Card(
-          color: const Color.fromARGB(255, 189, 186, 186),
+          color: const Color.fromARGB(255, 233, 232, 232),
           child: SizedBox(
             height: 200.0,
             width: 358,
@@ -21,7 +21,7 @@ class _CustomCardState extends State<CustomCard> {
               children: [
                 const SizedBox(height: 90),
                 const Text(
-                  'Card Title',
+                  'Hello User',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -29,7 +29,7 @@ class _CustomCardState extends State<CustomCard> {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  'Card description goes here',
+                  '',
                   style: TextStyle(
                     color: Colors.grey[600],
                     fontSize: 16,

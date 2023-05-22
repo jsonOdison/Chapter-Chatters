@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 
 class DatabaseService {
   final String? uid;
@@ -132,17 +133,40 @@ class DatabaseService {
     }
   }
 
+  // send messge
+  sendMessage(String groupId, Map<String, dynamic> chatMessagesData) async {
+    groupCollection.doc(groupId).collection("messages").add(chatMessagesData);
+    groupCollection.doc(groupId).update({
+      "recentMessage": chatMessagesData['message'],
+      "recentMessageSender": chatMessagesData['sender'],
+      "recentMessageTime": chatMessagesData['time'].toString(),
+    });
+  }
+
   //toggling if User has a library First
   Future<bool> isLibraryEmpty() async {
     final userRef = FirebaseFirestore.instance.collection('users').doc(uid);
+    print(uid);
     final userData = await userRef.get();
     final libraryData = userData.data()?['library'];
     return libraryData == null || libraryData.isEmpty;
   }
 
-  //add books to libary
+  //does book exist already
+
+  Future<bool> bookExist(String bookId) async {
+    final usersCollection = FirebaseFirestore.instance.collection('users');
+
+    final userDoc = await usersCollection.doc(uid).get();
+
+    final library = userDoc.data()?['Library'] as Map<String, dynamic>;
+
+    return library.containsKey(bookId);
+  }
+
   Future<void> addBookToLibrary(String bookId, String bookName) async {
     final userRef = FirebaseFirestore.instance.collection('users').doc(uid);
+
     Map<String, dynamic> bookData = {
       bookId: {
         'id': bookId,
@@ -152,5 +176,34 @@ class DatabaseService {
     return await userRef.update({
       'library': FieldValue.arrayUnion([bookData])
     });
+  }
+
+  //delete books from libary
+  Future<void> deleteBookToLibrary(String userId, String bookId) async {
+    try {
+      final userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .get();
+      final library =
+          List<Map<String, dynamic>>.from(userDoc.get('library') ?? []);
+
+      // Remove the book from the library
+      library.removeWhere((book) => book['id'] == bookId);
+
+      // Update the library in the database
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .update({'library': library});
+
+      if (kDebugMode) {
+        print("Book deleted successfully.");
+      }
+    } catch (error) {
+      if (kDebugMode) {
+        print("Failed to delete book: $error");
+      }
+    }
   }
 }

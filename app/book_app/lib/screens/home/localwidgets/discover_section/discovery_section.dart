@@ -7,17 +7,18 @@ import '../../../../models/book.dart';
 import '../../../../services/Books_api/fetch_books.dart';
 import 'book_cards/book_cards.dart';
 
-class CategoryList extends StatefulWidget {
+class DiscoverySection extends StatefulWidget {
   final String searchTerm;
   final int maxResults;
-  const CategoryList({Key? key, required this.maxResults, this.searchTerm = ''})
+  const DiscoverySection(
+      {Key? key, required this.maxResults, this.searchTerm = ''})
       : super(key: key);
 
   @override
-  State<CategoryList> createState() => _CategoryListState();
+  State<DiscoverySection> createState() => _DiscoverySectionState();
 }
 
-class _CategoryListState extends State<CategoryList> {
+class _DiscoverySectionState extends State<DiscoverySection> {
   List<BookModel> _books = [];
   String _searchTerm = "";
   // stuff
@@ -36,7 +37,7 @@ class _CategoryListState extends State<CategoryList> {
     final booksApi = BooksApi();
     final books = await booksApi.fetchBooks(
       searchTerm,
-      maxResults: 5,
+      maxResults: 12,
     );
     setState(() {
       _books = books;
@@ -55,8 +56,8 @@ class _CategoryListState extends State<CategoryList> {
               "Discover",
               style: Theme.of(context)
                   .textTheme
-                  .titleLarge
-                  ?.copyWith(fontSize: 20),
+                  .displayLarge
+                  ?.copyWith(fontSize: 25),
             ),
             Text(
               "view all",
@@ -70,35 +71,11 @@ class _CategoryListState extends State<CategoryList> {
           height: 10,
         ),
         BookCard(
+          context,
           books: _books,
         ),
         const SizedBox(
           height: 40,
-        ),
-        Row(
-          //padding for the title section widget
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Continue Reading",
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(fontSize: 20),
-            ),
-            Text(
-              "view all",
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontSize: 20,
-                  color: const Color.fromARGB(255, 162, 160, 160)),
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        BookCard(
-          books: _books,
         ),
       ],
     );

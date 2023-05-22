@@ -60,7 +60,6 @@ class _GroupMainPageState extends State<GroupMainPage> {
         child: Padding(
             padding: const EdgeInsets.all(10),
             child: AppBar(
-              backgroundColor: Colors.white,
               elevation: 0,
               centerTitle: true,
               title: const Text(

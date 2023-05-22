@@ -1,4 +1,4 @@
-import 'package:book_app/screens/categories/book_clicked/book_clicked.dart';
+import 'package:book_app/screens/book_details/book_details.dart';
 import 'package:book_app/widgets/widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -58,11 +58,8 @@ class _BookScreenState extends State<BookScreen> {
                       onTap: () {
                         nextScreen(
                             context,
-                            BookClicked(
-                              title: book.title,
-                              image: book.thumbnail,
-                              author: book.author.join(', '),
-                              bookid: book.id,
+                            BookDetailsClicked(
+                              bookId: book.id,
                             ));
                       },
                       child: ListTile(

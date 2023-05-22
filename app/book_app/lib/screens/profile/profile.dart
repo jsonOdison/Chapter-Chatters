@@ -1,6 +1,8 @@
 import 'package:book_app/services/authentication/auth_services.dart';
 import 'package:flutter/material.dart';
 
+import 'localwidgets/profile_card.dart';
+
 class Profile extends StatefulWidget {
   const Profile({super.key});
 
@@ -18,7 +20,6 @@ class _ProfileState extends State<Profile> {
         child: Padding(
             padding: const EdgeInsets.all(10),
             child: AppBar(
-              backgroundColor: Colors.white,
               elevation: 0,
               centerTitle: true,
               title: const Text(
@@ -53,7 +54,7 @@ class _ProfileState extends State<Profile> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
-            // CustomCard(),
+            CustomCard(),
           ],
         ),
       ),

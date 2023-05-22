@@ -1,10 +1,9 @@
-import 'package:book_app/services/database/database.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/book.dart';
 import '../../services/Books_api/fetch_books.dart';
 import '../../widgets/widgets.dart';
+import '../book_details/book_details.dart';
 
 class SearchBook extends StatefulWidget {
   const SearchBook({
@@ -42,7 +41,6 @@ class _SearchBookState extends State<SearchBook> {
         child: Padding(
             padding: const EdgeInsets.all(10),
             child: AppBar(
-              backgroundColor: Colors.white,
               elevation: 0,
               centerTitle: true,
               title: const Text(
@@ -77,7 +75,7 @@ class _SearchBookState extends State<SearchBook> {
           children: [
             Container(
               height: screenHeight * 0.1,
-              color: Colors.white.withOpacity(0.9),
+              color: const Color(0xffFEF8F0),
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               child: Row(
                 children: [
@@ -141,25 +139,30 @@ class _SearchBookState extends State<SearchBook> {
                       itemCount: books.length,
                       itemBuilder: (context, index) {
                         var book = books[index];
-                        var bookId = book.id;
                         var bookTitle = book.title;
+                        var author = book.author;
 
                         var img = book.thumbnail;
 
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: ListTile(
-                            leading: Image.network(
-                              img,
-                              height: screenHeight * 0.2,
-                              width: screenWidth * 0.2,
+                          child: GestureDetector(
+                            onTap: () {
+                              nextScreen(
+                                  context,
+                                  BookDetailsClicked(
+                                    bookId: book.id,
+                                  ));
+                            },
+                            child: ListTile(
+                              leading: Image.network(
+                                img,
+                                height: screenHeight * 0.2,
+                                width: screenWidth * 0.2,
+                              ),
+                              title: Text(bookTitle),
+                              subtitle: Text(author.join(', ')),
                             ),
-                            title: Text(bookTitle),
-                            trailing: ElevatedButton(
-                                onPressed: () {
-                                  addToLibrary(bookId);
-                                },
-                                child: const Text("Add book")),
                           ),
                         );
                       },
@@ -170,14 +173,5 @@ class _SearchBookState extends State<SearchBook> {
         ),
       ),
     );
-  }
-
-  Future<void> addToLibrary(bookId) async {
-    await DatabaseService().addBookToLibrary(bookId, "");
-    if (kDebugMode) {
-      print("successfully added");
-    }
-    showSnackBar(BuildContext, "Book created succesfully",
-        const Color.fromARGB(255, 50, 114, 52));
   }
 }

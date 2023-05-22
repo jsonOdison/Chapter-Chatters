@@ -9,19 +9,21 @@ class MainTheme {
   ThemeData buildTheme() {
     return ThemeData(
       fontFamily: 'Karla',
-      scaffoldBackgroundColor: Colors.white,
+      scaffoldBackgroundColor: const Color(0xffFEF8F0),
       primaryColor: _primaryColor,
       // app bar theme
       appBarTheme: const AppBarTheme(
-        color: Colors.white,
+        centerTitle: false,
+        titleTextStyle: TextStyle(color: Colors.black, fontSize: 28),
+        color: Color(0xffFEF8F0),
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.black),
       ),
       //Text
       textTheme: TextTheme(
         displayLarge: const TextStyle(
-          fontFamily: 'Newsreader',
-          fontSize: 40,
+          fontFamily: 'Karla',
+          fontSize: 60,
           fontWeight: FontWeight.w700,
           color: Color.fromARGB(255, 94, 92, 92),
         ),

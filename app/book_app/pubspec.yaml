@@ -48,6 +48,7 @@ dependencies:
   firebase_messaging: ^14.3.0
   google_nav_bar: ^5.0.6
   shared_preferences: ^2.0.20
+  url_launcher: ^6.1.10
 
 dev_dependencies:
   flutter_test:

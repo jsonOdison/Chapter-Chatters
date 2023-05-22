@@ -4,8 +4,10 @@ import '../../helper/user_helper.dart';
 import '../../services/authentication/auth_services.dart';
 import '../../widgets/widgets.dart';
 import '../Profile/profile.dart';
+import '../group/root_group.dart';
 import '../login/login.dart';
-import 'localwidgets/discover_section/discover_list.dart';
+import 'localwidgets/discover_section/discovery_section.dart';
+import 'localwidgets/library_section/library_section.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -18,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String userName = '';
   String email = "";
   AuthService authService = AuthService();
+
   @override
   void initState() {
     super.initState();
@@ -48,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(
+        backgroundColor: const Color(0xffFEF8F0),
         child: ListView(
           padding: const EdgeInsets.all(19),
           children: [
@@ -87,7 +91,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Colors.black,
                   ),
                   ListTile(
-                    onTap: () {},
+                    onTap: () {
+                      nextScreen(context, const GroupMainPage());
+                    },
                     selectedColor: Theme.of(context).primaryColor,
                     selected: true,
                     contentPadding:
@@ -200,26 +206,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  TextField(
-                    decoration: textInputDecoration.copyWith(
-                      labelText: "search here..",
-                      prefixIcon: Icon(
-                        Icons.search,
-                        size: 40,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                  ),
+
                   const SizedBox(
                     height: 40,
                   ),
-                  constraints.maxWidth < 600
-                      ? const CategoryList(
-                          maxResults: 5,
-                        )
-                      : const CategoryList(
-                          maxResults: 10,
-                        ),
+
+                  //category seciton
+                  const DiscoverySection(maxResults: 5),
+
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  //Library seciton
+                  const LibrarySection()
                 ],
               ),
             ),

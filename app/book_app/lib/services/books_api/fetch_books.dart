@@ -7,8 +7,6 @@ import 'package:http/http.dart' as http;
 import '../../models/book_details.dart';
 
 class BooksApi {
-  // get authors
-
   Future<List<BookModel>> fetchBooks(String searchTerm,
       {int? maxResults}) async {
     try {
@@ -101,6 +99,7 @@ class BooksApi {
     }
   }
 
+//get authors
   List<String> getAuthors(Map<String, dynamic> volumeInfo) {
     final authorsJson = volumeInfo['authors'];
     if (authorsJson == null) {
@@ -113,8 +112,6 @@ class BooksApi {
   }
 
   //get book details when i click on any one of them ,
-
-  // other methods
 
   Future<BookDetails> fetchBookDetails(String bookId) async {
     try {
@@ -133,7 +130,17 @@ class BooksApi {
         final authors = getAuthors(volumeInfo);
         final description = volumeInfo['description'] ?? '';
         final pageCount = volumeInfo['pageCount'] ?? 0;
-        final previewLink = volumeInfo['previewLink'] ?? '';
+        final previewLink = volumeInfo['previewLink'] != null
+            ? Uri.parse(volumeInfo['previewLink'])
+            : null;
+
+        final categoriesJson = volumeInfo['categories'];
+        final categories =
+            categoriesJson != null ? List<String>.from(categoriesJson) : null;
+
+        final language = volumeInfo['language'] ?? '';
+        final publisher = volumeInfo['publisher'] ?? '';
+        final publishedDate = volumeInfo['publishedDate'] ?? '';
 
         return BookDetails(
           id: bookId,
@@ -143,6 +150,10 @@ class BooksApi {
           description: description,
           pageCount: pageCount,
           previewLink: previewLink,
+          categories: categories,
+          language: language,
+          publisher: publisher,
+          publishedDate: publishedDate,
         );
       } else {
         if (kDebugMode) {

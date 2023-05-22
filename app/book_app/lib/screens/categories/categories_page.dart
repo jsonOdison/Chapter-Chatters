@@ -4,26 +4,7 @@ import '../../widgets/widgets.dart';
 import 'book_categories_clicked/book_categories.dart';
 
 class CategoryScreen extends StatelessWidget {
-  final List<String> categories = [
-    "Action and Adventure",
-    "Classic",
-    "Comic and Graphic Novel",
-    "Crime and Detective",
-    "Drama",
-    "Fairy Tale",
-    "Fantasy",
-    "Historical",
-    "Horror",
-    "Humor",
-    "Mystery",
-    "Mythology",
-    "Romance",
-    "Science Fiction",
-    "Short Story",
-    "Suspense/Thriller",
-    "Biography/Autobiography",
-    "Self-Help Book",
-  ];
+  final List<String> categories = keywords;
 
   final List category = categoryColors;
 
@@ -37,7 +18,6 @@ class CategoryScreen extends StatelessWidget {
         child: Padding(
             padding: const EdgeInsets.all(10),
             child: AppBar(
-              backgroundColor: Colors.white,
               elevation: 0,
               centerTitle: true,
               title: const Text(

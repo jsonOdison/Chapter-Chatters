@@ -34,7 +34,7 @@ class _EntryState extends State<Entry> {
         children: _screens,
       ),
       bottomNavigationBar: Container(
-        color: const Color.fromARGB(255, 255, 255, 255),
+        color: const Color.fromARGB(255, 241, 228, 214),
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width * 0.06,
@@ -44,9 +44,9 @@ class _EntryState extends State<Entry> {
             scrollDirection: Axis.horizontal,
             child: GNav(
               gap: 6,
-              backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+              backgroundColor: const Color.fromARGB(255, 241, 228, 214),
               padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.04),
-              tabBackgroundColor: Theme.of(context).primaryColor,
+              tabBackgroundColor: const Color(0xff5D8CAE),
               selectedIndex: _selectedIndex,
               onTabChange: (index) {
                 setState(() {
