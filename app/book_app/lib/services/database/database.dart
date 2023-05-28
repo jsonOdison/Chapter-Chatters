@@ -146,7 +146,6 @@ class DatabaseService {
   //toggling if User has a library First
   Future<bool> isLibraryEmpty() async {
     final userRef = FirebaseFirestore.instance.collection('users').doc(uid);
-    print(uid);
     final userData = await userRef.get();
     final libraryData = userData.data()?['library'];
     return libraryData == null || libraryData.isEmpty;

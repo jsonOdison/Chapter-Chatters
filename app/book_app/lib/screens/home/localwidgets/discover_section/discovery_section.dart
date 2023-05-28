@@ -8,11 +8,9 @@ import '../../../../services/Books_api/fetch_books.dart';
 import 'book_cards/book_cards.dart';
 
 class DiscoverySection extends StatefulWidget {
-  final String searchTerm;
-  final int maxResults;
-  const DiscoverySection(
-      {Key? key, required this.maxResults, this.searchTerm = ''})
-      : super(key: key);
+  const DiscoverySection({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<DiscoverySection> createState() => _DiscoverySectionState();

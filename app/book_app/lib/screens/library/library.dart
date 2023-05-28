@@ -182,7 +182,7 @@ class _LibraryState extends State<Library> {
     await DatabaseService()
         .deleteBookToLibrary(FirebaseAuth.instance.currentUser!.uid, bookId);
     if (kDebugMode) {
-      print("successfully added");
+      print("successfully deleted");
     }
     var snackBar = const SnackBar(
       content: Text("Book Deleted succesfully"),

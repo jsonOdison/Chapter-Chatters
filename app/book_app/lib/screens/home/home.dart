@@ -210,15 +210,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 40,
                   ),
+                  //Library seciton
+                  const LibrarySection(),
+                  const SizedBox(
+                    height: 50,
+                  ),
 
                   //category seciton
-                  const DiscoverySection(maxResults: 5),
-
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  //Library seciton
-                  const LibrarySection()
+                  const DiscoverySection(),
                 ],
               ),
             ),
