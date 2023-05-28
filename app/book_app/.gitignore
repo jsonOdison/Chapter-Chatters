@@ -47,6 +47,6 @@ app.*.map.json
 ios/Runner/GoogleService-Info.plist
 
 # Exclude other Firebase-related files if needed
-firebase_options.dart
+# firebase_options.dart
 # firebase_options_dev.dart
 # firebase_options_prod.dart
