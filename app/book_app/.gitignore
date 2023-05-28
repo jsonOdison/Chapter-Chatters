@@ -31,7 +31,6 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
-
 # Symbolication related
 app.*.symbols
 
@@ -43,3 +42,11 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 /android/app/google-services.json
+# Firebase configuration files to ignore
+# Add more entries if necessary
+ios/Runner/GoogleService-Info.plist
+
+# Exclude other Firebase-related files if needed
+firebase_options.dart
+# firebase_options_dev.dart
+# firebase_options_prod.dart
