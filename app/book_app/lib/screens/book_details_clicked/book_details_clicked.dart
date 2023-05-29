@@ -18,19 +18,27 @@ class BookDetailsClicked extends StatefulWidget {
 
 class _BookDetailsClickedState extends State<BookDetailsClicked> {
   bool _isLoading = true;
+  bool _isBookAdded = false;
   late BookDetails _bookDetails = BookDetails(id: widget.bookId, title: '');
-
   Future<void> _loadBook() async {
     try {
       final fetchedBook = await BooksApi().fetchBookDetails(widget.bookId);
-      setState(() {
-        _bookDetails = fetchedBook;
-        _isLoading = false;
-      });
+      final bookExist = await DatabaseService().bookExist(widget.bookId);
+      if (fetchedBook != null) {
+        setState(() {
+          _bookDetails = fetchedBook;
+          _isLoading = false;
+          _isBookAdded = bookExist;
+        });
+      } else {
+        // Handle the case where the book details are null or not available
+        // For example, you could show an error message or navigate back.
+      }
     } catch (e) {
       if (kDebugMode) {
         print('Error loading book: $e');
       }
+      // Handle the error appropriately (e.g., show an error message).
     }
   }
 
@@ -95,11 +103,13 @@ class _BookDetailsClickedState extends State<BookDetailsClicked> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(20),
-                    child: buildButton(
-                        "ADD",
-                        () => addBookDBHelper(
-                            context, widget.bookId, _bookDetails.title),
-                        context),
+                    child: _isBookAdded
+                        ? const Text("data")
+                        : buildButton(
+                            "add",
+                            () => addBookDBHelper(
+                                context, widget.bookId, _bookDetails.title),
+                            context),
                   )
                 ],
               ),

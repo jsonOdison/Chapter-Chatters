@@ -178,26 +178,31 @@ class DatabaseService {
   }
 
   //delete books from libary
-  Future<void> deleteBookToLibrary(String userId, String bookId) async {
+  Future<void> deleteBookToLibrary(String bookId) async {
     try {
-      final userDoc = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userId)
-          .get();
-      final library =
+      final userRef = FirebaseFirestore.instance.collection('users').doc(uid);
+      final userDoc = await userRef.get();
+
+      List<Map<String, dynamic>> library =
           List<Map<String, dynamic>>.from(userDoc.get('library') ?? []);
 
-      // Remove the book from the library
-      library.removeWhere((book) => book['id'] == bookId);
+      // Find the index of the book in the library array
+      int bookIndex = library.indexWhere((book) => book.containsKey(bookId));
 
-      // Update the library in the database
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userId)
-          .update({'library': library});
+      if (bookIndex != -1) {
+        // Remove the book from the library
+        library.removeAt(bookIndex);
 
-      if (kDebugMode) {
-        print("Book deleted successfully.");
+        // Update the library in the database
+        await userRef.update({'library': library});
+
+        if (kDebugMode) {
+          print("Book deleted successfully.");
+        }
+      } else {
+        if (kDebugMode) {
+          print("Book not found in the library.");
+        }
       }
     } catch (error) {
       if (kDebugMode) {

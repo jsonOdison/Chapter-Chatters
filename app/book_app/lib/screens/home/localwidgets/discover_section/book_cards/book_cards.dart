@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../models/book.dart';
 import '../../../../../widgets/widgets.dart';
-import '../../../../book_details/book_details.dart';
+import '../../../../book_details_clicked/book_details_clicked.dart';
 
 class BookCard extends StatefulWidget {
   final List<BookModel> books;

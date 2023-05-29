@@ -1,4 +1,4 @@
-import 'package:book_app/screens/book_details/book_details.dart';
+import 'package:book_app/screens/book_details_clicked/book_details_clicked.dart';
 import 'package:book_app/widgets/widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

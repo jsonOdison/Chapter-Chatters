@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import '../../../../models/book.dart';
 import '../../../../services/database/database.dart';
 import '../../../../widgets/widgets.dart';
-import '../../../book_details/book_details.dart';
+import '../../../book_details_clicked/book_details_clicked.dart';
 
 class LibrarySection extends StatefulWidget {
   const LibrarySection({super.key});
@@ -86,7 +86,7 @@ class _LibrarySectionState extends State<LibrarySection> {
                     ),
                   )
                 : SizedBox(
-                    height: 200,
+                    height: 250,
                     child: ListView.builder(
                         // padding: const EdgeInsets.all(10),
                         scrollDirection: Axis.horizontal,
@@ -180,8 +180,8 @@ class _LibrarySectionState extends State<LibrarySection> {
   }
 
   Future<void> deleteBookDBHelper(BuildContext context, bookId) async {
-    await DatabaseService()
-        .deleteBookToLibrary(FirebaseAuth.instance.currentUser!.uid, bookId);
+    await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
+        .deleteBookToLibrary(bookId);
     if (kDebugMode) {
       print("successfully deleted");
     }

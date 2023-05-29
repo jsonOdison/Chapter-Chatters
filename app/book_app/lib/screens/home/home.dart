@@ -204,17 +204,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   Text("Hello, $firstName !",
                       style: Theme.of(context).textTheme.titleLarge),
                   const SizedBox(
-                    height: 20,
+                    height: 30,
                   ),
 
-                  const SizedBox(
-                    height: 40,
-                  ),
                   //Library seciton
                   const LibrarySection(),
-                  const SizedBox(
-                    height: 50,
-                  ),
+                  // const SizedBox(
+                  //   height: 10,
+                  // ),
 
                   //category seciton
                   const DiscoverySection(),

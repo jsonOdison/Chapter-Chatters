@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../services/database/database.dart';
-import '../book_details/book_details.dart';
+import '../book_details_clicked/book_details_clicked.dart';
 import '../../models/book_details.dart';
 
 // assume you have access to the uid
@@ -127,7 +127,9 @@ class _LibraryState extends State<Library> {
                           final bookDetails = snapshot.data!;
                           return GestureDetector(
                             onLongPress: () =>
-                                deleteBookDBHelper(context, bookId),
+                                Future.delayed(Duration.zero, () {
+                              deleteBookDBHelper(context, bookId);
+                            }),
                             onTap: () {
                               Navigator.push(
                                 context,
@@ -139,7 +141,7 @@ class _LibraryState extends State<Library> {
                             },
                             child: Card(
                               color: const Color(0xffFEF8F0),
-                              elevation: 1,
+                              elevation: 0,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -179,8 +181,8 @@ class _LibraryState extends State<Library> {
   }
 
   Future<void> deleteBookDBHelper(BuildContext context, bookId) async {
-    await DatabaseService()
-        .deleteBookToLibrary(FirebaseAuth.instance.currentUser!.uid, bookId);
+    await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
+        .deleteBookToLibrary(bookId);
     if (kDebugMode) {
       print("successfully deleted");
     }

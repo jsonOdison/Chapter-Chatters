@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-buildButton(String message, VoidCallback press, BuildContext context) {
+buildButton(String message, void Function()? press, BuildContext context) {
   return SizedBox(
     height: 50,
     width: 130,
