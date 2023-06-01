@@ -68,7 +68,14 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
         body: Stack(
           children: [
-            chatMessages(),
+            SingleChildScrollView(
+              child: SizedBox(
+                height: MediaQuery.of(context)
+                    .size
+                    .height, // or provide a specific height value
+                child: chatMessages(),
+              ),
+            ),
             Container(
               alignment: Alignment.bottomCenter,
               width: MediaQuery.of(context).size.width,
